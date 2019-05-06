@@ -6,7 +6,26 @@
 [comment @main/]
 [for (aTask : WorkflowMM::Task | aWorkflow.actors.tasks)]
 [file (aTask.name+'.html', false, 'UTF-8')]
+<html>
+<head>
+  <title>[aWorkflow.name/] - ([aTask.eContainer().oclAsType(Actor).name/]) [aTask.name/]</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
 
+</body>
+</html>
 [/file]
 [/for]
+[generateCSS(aWorkflow)/]
 [/template]
+
+[template public generateCSS(aWorkflow : Workflow)]
+[file ('styles.css', false, 'UTF-8')]
+html {
+  background-color: lightgray;
+  color: black;
+}
+[/file]
+[/template]
+
