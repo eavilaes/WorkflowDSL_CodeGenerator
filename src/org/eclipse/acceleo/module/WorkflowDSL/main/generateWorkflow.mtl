@@ -1,6 +1,6 @@
 [comment encoding = UTF-8 /]
-[module generate('http://www.dmss.es/WorkflowMM')]
-
+[module generateWorkflow('http://www.dmss.es/WorkflowMM')]
+[import org::eclipse::acceleo::module::WorkflowDSL::main::generateCSS/]
 
 [template public generateWorkflow(aWorkflow : Workflow)]
 [comment @main/]
@@ -19,13 +19,3 @@
 [/for]
 [generateCSS(aWorkflow)/]
 [/template]
-
-[template public generateCSS(aWorkflow : Workflow)]
-[file ('styles.css', false, 'UTF-8')]
-html {
-  background-color: lightgray;
-  color: black;
-}
-[/file]
-[/template]
-

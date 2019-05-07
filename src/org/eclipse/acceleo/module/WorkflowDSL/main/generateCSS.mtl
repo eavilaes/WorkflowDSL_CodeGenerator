@@ -1,0 +1,11 @@
+[comment encoding = UTF-8 /]
+[module generateCSS('http://www.dmss.es/WorkflowMM')]
+
+[template public generateCSS(aWorkflow : Workflow)]
+[file ('styles.css', false, 'UTF-8')]
+html {
+  background-color: lightgray;
+  color: black;
+}
+[/file]
+[/template]
