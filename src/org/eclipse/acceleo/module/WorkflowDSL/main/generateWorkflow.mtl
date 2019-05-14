@@ -1,12 +1,12 @@
 [comment encoding = UTF-8 /]
 [module generateWorkflow('http://www.dmss.es/WorkflowMM')]
-[import org::eclipse::acceleo::module::WorkflowDSL::main::generateCSS/]
 
 [template public generateWorkflow(aWorkflow : Workflow)]
 [comment @main/]
 [for (aActor : WorkflowMM::Actor | aWorkflow.actors)]
 [for (aTask : WorkflowMM::Task | aActor.tasks)]
-[file (aActor.name+'/'+aTask.name+'.html', false, 'UTF-8')]
+[file (aActor.name+'/'+aTask.name.replaceAll(' ', '')+'.html', false, 'UTF-8')]
+<!DOCTYPE html>
 <html>
 <head>
   <title>[aWorkflow.name/] - ([aTask.eContainer().oclAsType(Actor).name/]) [aTask.name/]</title>
@@ -20,6 +20,8 @@
 </div>
 <div class="body">
 
+[generateTask(aTask)/]
+
 </div>
 <div class="footer">
 
@@ -29,5 +31,128 @@
 [/file]
 [/for]
 [/for]
+
 [generateCSS(aWorkflow)/]
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(UserTask))]
+<form class="form" action=[aTask.linkedTo.name.replaceAll(' ', '')/].html>
+[for (aInformation : Information | aTask.oclAsType(UserTask).requires)]
+
+[generateRequiredInformation(aInformation)/]
+
+[/for]
+
+<input class= "form-element next-button " type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ServiceTask))]
+<form class="form" action=[aTask.linkedTo.name.replaceAll(' ', '')/].html>
+
+[for (aInformation : Information | aTask.oclAsType(ServiceTask).requires)]
+[generateRequiredInformation(aInformation)/]
+[/for]
+
+<p>this task wil produce the following information: </p>
+[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]
+<p>[bInformation.name/]</p>
+[/for]
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(SendMsgTask))]
+<form class="form" action=[aTask.oclAsType(SendMsgTask).nextTask.name.replaceAll(' ', '')/].html>
+
+[for (aInformation : Information | aTask.oclAsType(SendMsgTask).requires)]
+[generateRequiredInformation(aInformation)/]
+[/for]
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ReceiveMsgTask))]
+<form class="form">
+<button class="form-element next-button" formaction="[aTask.linkedTo.name.replaceAll(' ', '')/].html">next</button>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(Begin))]
+<form class="form">
+<button class="form-element next-button" formaction="[aTask.linkedTo.name.replaceAll(' ', '')/].html">next</button>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(End))]
+
+[/template]
+
+[template public generateRequiredInformation (aInformation : Information) ? (aInformation.type = TypeOfData::FILL_FORM)]
+[for (aData : Data | aInformation.datas)]
+<label class="form-element" for="[aData.id/]">[aData.name/]</label><br>
+<input class="form-element" id="[aData.id/]" type="text"><br>
+[/for]
+[/template]
+
+[template public generateRequiredInformation (aInformation : Information) ? (aInformation.type = TypeOfData::SELECT_OPTIONS)]
+
+[for (aOption : Option | aInformation.options)]
+[if (aInformation.multiple)]
+<input class="form-element" type="checkbox" name="[aInformation.id/]" value="[aOption.id/]">[aOption.title/]<br>
+[else]
+<input class="form-element" type="radio" name="[aInformation.id/]" value="[aOption.id/]">[aOption.title/]<br>
+[/if]
+
+[/for]
+[/template]
+
+[template public generateRequiredInformation (aInformation : Information) ? (aInformation.type = TypeOfData::UPLOAD_FILES)]
+[for (aFile : File | aInformation.files)]
+[aFile.title/]<br>
+<input class="form-element" id="[aFile.id/]" type="file"><br>
+[/for]
+[/template]
+
+
+[template public generateCSS (aWorkflow: Workflow)]
+[file ('styles.css', false, 'UTF-8')]
+html {
+  background-color: lightgray;
+  color: black;
+}
+.header h1, h2, h3 {
+  font-weight: 600;
+  text-align: center;
+  margin: 0px;
+}
+body{
+  background-color:white;
+  border-radius:10px;
+  min-height: 250px;  
+}
+.body{
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
+  padding: 10px;
+}
+.form{
+  background-color: lightcoral;
+  padding: 10px; 
+  border-radius: 10px; 
+}
+.form-element{
+  margin-top:1%;
+  margin-bottom:1%;
+}
+.next-button{
+  border-radius: 5px; 
+  background-color: white; 
+  border-style: none; 
+  color:lightcoral;
+}
+[/file]
 [/template]

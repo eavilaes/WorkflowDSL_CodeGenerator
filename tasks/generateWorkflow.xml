@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generateWorkflow" name="org.eclipse.acceleo.module.WorkflowDSL">
-    <property name="ECLIPSE_HOME" value="../../../eclipse"/>
-    <property name="ECLIPSE_WORKSPACE" value="../.."/>
+    <property name="ECLIPSE_HOME" value="../../../../../DMSS/NeonDMSS1718/eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../../../DMSS/ATLWorkspace"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="org.eclipse.acceleo.module.WorkflowDSL.libraryclasspath">
