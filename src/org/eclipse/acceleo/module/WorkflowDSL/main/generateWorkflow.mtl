@@ -9,12 +9,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>[aWorkflow.name/] - ([aTask.eContainer().oclAsType(Actor).name/]) [aTask.name/]</title>
+  <title>([aTask.eContainer().oclAsType(Actor).name/]) [aTask.name/]</title>
   <link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
 <body>
 <div class="header">
-<h1>[aWorkflow.name/]</h1>
 <h2>[aActor.name/]</h2>
 <h3>[aTask.name/]</h3>
 </div>
