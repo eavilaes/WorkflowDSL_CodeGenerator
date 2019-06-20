@@ -5,7 +5,7 @@
 [comment @main/]
 [for (aActor : WorkflowMM::Actor | aWorkflow.actors)]
 [for (aTask : WorkflowMM::Task | aActor.tasks)]
-[file (aActor.name+'/'+aTask.name.replaceAll(' ', '')+'.html', false, 'UTF-8')]
+[file (aActor.name+'/'+aTask.name.substituteAll(' ', '')+'.html', false, 'UTF-8')]
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +35,7 @@
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(UserTask))]
-<form class="form" action=[aTask.linkedTo.name.replaceAll(' ', '')/].html>
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 [for (aInformation : Information | aTask.oclAsType(UserTask).requires)]
 
 [generateRequiredInformation(aInformation)/]
@@ -47,15 +47,14 @@
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ServiceTask))]
-<form class="form" action=[aTask.linkedTo.name.replaceAll(' ', '')/].html>
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
 [for (aInformation : Information | aTask.oclAsType(ServiceTask).requires)]
 [generateRequiredInformation(aInformation)/]
 [/for]
 
-<p>this task wil produce the following information: </p>
-[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]
-<p>[bInformation.name/]</p>
+<p>This task will produce the following information: </p>
+[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<p>[bInformation.name/]</p>
 [/for]
 
 <input class="form-element next-button" type=submit value="Next" ></input>
@@ -63,7 +62,7 @@
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(SendMsgTask))]
-<form class="form" action=[aTask.oclAsType(SendMsgTask).nextTask.name.replaceAll(' ', '')/].html>
+<form class="form" action=[aTask.oclAsType(SendMsgTask).nextTask.name.substituteAll(' ', '')/].html>
 
 [for (aInformation : Information | aTask.oclAsType(SendMsgTask).requires)]
 [generateRequiredInformation(aInformation)/]
@@ -75,13 +74,13 @@
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ReceiveMsgTask))]
 <form class="form">
-<button class="form-element next-button" formaction="[aTask.linkedTo.name.replaceAll(' ', '')/].html">next</button>
+<button class="form-element next-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">next</button>
 </form>
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(Begin))]
 <form class="form">
-<button class="form-element next-button" formaction="[aTask.linkedTo.name.replaceAll(' ', '')/].html">next</button>
+<button class="form-element next-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">next</button>
 </form>
 [/template]
 
