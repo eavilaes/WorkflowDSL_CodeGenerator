@@ -32,6 +32,7 @@
 [/for]
 
 [generateCSS(aWorkflow)/]
+[generateSQL(aWorkflow)/]
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(UserTask))]
@@ -152,5 +153,21 @@ body{
   border-style: none; 
   color:lightcoral;
 }
+[/file]
+[/template]
+
+[template public generateSQL (aWorkflow: Workflow)]
+[file ('database.sql', false, 'UTF-8')]
+[for (aActor : WorkflowMM::Actor | aWorkflow.actors)]
+[for (aTask : WorkflowMM::UserTask | aActor.tasks->select(oclIsTypeOf(UserTask)))]
+CREATE TABLE [aTask.name.substituteAll(' ', '')/] (
+	[for (aInformation : WorkflowMM::Information | aTask.requires)]
+	[for (aField : WorkflowMM::Data | aInformation.datas)]
+	[aField.name.substituteAll(' ', '')/] VARCHAR,
+	[/for]
+	[/for]
+);
+[/for]
+[/for]
 [/file]
 [/template]
