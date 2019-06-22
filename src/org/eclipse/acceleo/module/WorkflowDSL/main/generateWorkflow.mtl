@@ -51,7 +51,7 @@
 <form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
 First click on the next button to do this task:
-<input class="form-element next-button" type="button" value="[aTask.name/]" ></input>
+<input class="form-element action-button" type="button" value="[aTask.name/]" ></input>
 This will produce the following information:
 <ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
 [/for]</ul>
@@ -70,7 +70,12 @@ Once finished, you can go to the next step.
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ReceiveMsgTask))]
 <form class="form">
-<button class="form-element next-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">next</button>
+List of messages received:
+<ol>
+[for (aMsg : Task | self.linkedFrom)]
+<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
+[/for]
+</ol>
 </form>
 [/template]
 
@@ -81,7 +86,9 @@ Once finished, you can go to the next step.
 [/template]
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(End))]
-
+<form class="form">
+Thank you! Have a great day!
+</form>
 [/template]
 
 [template public generateRequiredInformation (aInformation : Information) ? (aInformation.type = TypeOfData::FILL_FORM)]
@@ -142,13 +149,18 @@ body{
   margin-top:1%;
   margin-bottom:1%;
 }
-.next-button{
-  display: block;
-  margin: auto;
+.next-button, .action-button, .attend-button{
   border-radius: 5px; 
   background-color: white; 
   border-style: none; 
   color:lightcoral;
+}
+.action-button{
+  display: block;
+}
+.next-button{
+  display: block;
+  margin: auto;
 }
 [/file]
 [/template]
