@@ -170,11 +170,9 @@ body{
 [for (aActor : WorkflowMM::Actor | aWorkflow.actors)]
 [for (aTask : WorkflowMM::UserTask | aActor.tasks->select(oclIsTypeOf(UserTask)))]
 CREATE TABLE [aTask.name.substituteAll(' ', '')/] (
-	[for (aInformation : WorkflowMM::Information | aTask.requires)]
-	[for (aField : WorkflowMM::Data | aInformation.datas)]
-	[aField.name.substituteAll(' ', '')/] VARCHAR,
-	[/for]
-	[/for]
+	id INT AUTO_INCREMENT[for (aInformation : WorkflowMM::Information | aTask.requires)][for (aField : WorkflowMM::Data | aInformation.datas)],
+	[aField.name.substituteAll(' ', '')/] VARCHAR[/for][/for],
+	PRIMARY KEY (id)
 );
 [/for]
 [/for]
