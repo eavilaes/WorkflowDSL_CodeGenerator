@@ -50,13 +50,12 @@
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ServiceTask))]
 <form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
-[for (aInformation : Information | aTask.oclAsType(ServiceTask).requires)]
-[generateRequiredInformation(aInformation)/]
-[/for]
-
-<p>This task will produce the following information: </p>
-[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<p>[bInformation.name/]</p>
-[/for]
+First click on the next button to do this task:
+<input class="form-element next-button" type="button" value="[aTask.name/]" ></input>
+This will produce the following information:
+<ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
+[/for]</ul>
+Once finished, you can go to the next step.
 
 <input class="form-element next-button" type=submit value="Next" ></input>
 </form>
@@ -147,11 +146,9 @@ body{
   margin-top:1%;
   margin-bottom:1%;
 }
-.form button{
+.next-button{
   display: block;
   margin: auto;
-}
-.next-button{
   border-radius: 5px; 
   background-color: white; 
   border-style: none; 
