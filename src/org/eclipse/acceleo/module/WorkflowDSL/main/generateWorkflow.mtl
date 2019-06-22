@@ -81,7 +81,7 @@
 
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(Begin))]
 <form class="form">
-<button class="form-element next-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">next</button>
+<button class="form-element next-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Start</button>
 </form>
 [/template]
 
@@ -146,6 +146,10 @@ body{
 .form-element{
   margin-top:1%;
   margin-bottom:1%;
+}
+.form button{
+  display: block;
+  margin: auto;
 }
 .next-button{
   border-radius: 5px; 
