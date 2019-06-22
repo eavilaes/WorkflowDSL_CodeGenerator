@@ -64,11 +64,7 @@ Once finished, you can go to the next step.
 [template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(SendMsgTask))]
 <form class="form" action=[aTask.oclAsType(SendMsgTask).nextTask.name.substituteAll(' ', '')/].html>
 
-[for (aInformation : Information | aTask.oclAsType(SendMsgTask).requires)]
-[generateRequiredInformation(aInformation)/]
-[/for]
-
-<input class="form-element next-button" type=submit value="Next" ></input>
+<input class="form-element next-button" type=submit value="Send message" ></input>
 </form>
 [/template]
 
