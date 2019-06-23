@@ -51,8 +51,9 @@
 <form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
 This is the list of documents available for print:
-<input class="form-element action-button" type="button" value="[aTask.name/] 001" ></input>
-<input class="form-element action-button" type="button" value="[aTask.name/] 002" ></input>
+[for (bInformation : Information | aTask.oclAsType(ServiceTask).requires)]
+<input class="form-element action-button" type="button" value="[bInformation.name/]" ></input>
+[/for]
 This will produce the following information:
 <ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
 [/for]</ul>
@@ -66,8 +67,9 @@ Once finished, you can go to the next step.
 <form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
 This is the list of documents required for sign:
-<input class="form-element action-button" type="button" value="[aTask.name/] 001" ></input>
-<input class="form-element action-button" type="button" value="[aTask.name/] 002" ></input>
+[for (bInformation : Information | aTask.oclAsType(ServiceTask).requires)]
+<input class="form-element action-button" type="button" value="[bInformation.name/]" ></input>
+[/for]
 
 This will produce the following information:
 <ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
