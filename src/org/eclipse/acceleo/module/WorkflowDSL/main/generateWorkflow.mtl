@@ -115,8 +115,7 @@ Thank you! Have a great day!
 [aFile.title/]<br>
 <input class="form-element" id="[aFile.id/]" type="file"><br>
 [/for]
-[/template]
-
+[/template] 
 
 [template public generateCSS (aWorkflow: Workflow)]
 [file ('styles.css', false, 'UTF-8')]
