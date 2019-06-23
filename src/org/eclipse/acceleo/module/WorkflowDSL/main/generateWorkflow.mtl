@@ -47,11 +47,73 @@
 </form>
 [/template]
 
-[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ServiceTask))]
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ST_PrintDocument))]
 <form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
 
-First click on the next button to do this task:
+This is the list of documents available for print:
+<input class="form-element action-button" type="button" value="[aTask.name/] 001" ></input>
+<input class="form-element action-button" type="button" value="[aTask.name/] 002" ></input>
+This will produce the following information:
+<ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
+[/for]</ul>
+Once finished, you can go to the next step.
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask : Task) ? (aTask.oclIsTypeOf(ST_SignDocument))]
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
+
+This is the list of documents required for sign:
+<input class="form-element action-button" type="button" value="[aTask.name/] 001" ></input>
+<input class="form-element action-button" type="button" value="[aTask.name/] 002" ></input>
+
+This will produce the following information:
+<ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
+[/for]</ul>
+Once finished, you can go to the next step.
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask: Task) ? (aTask.oclIsTypeOf(ST_ValidateData))]
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
+
+You can validate the data by clicking the next button:
 <input class="form-element action-button" type="button" value="[aTask.name/]" ></input>
+
+This will produce the following information:
+<ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
+[/for]</ul>
+Once finished, you can go to the next step.
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask: Task) ? (aTask.oclIsTypeOf(ST_MakeCalculation))]
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
+
+You can make the calculation by clicking the next button:
+<input class="form-element action-button" type="button" value="[aTask.name/]" ></input>
+
+This will produce the following information:
+<ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
+[/for]</ul>
+Once finished, you can go to the next step.
+
+<input class="form-element next-button" type=submit value="Next" ></input>
+</form>
+[/template]
+
+[template public generateTask(aTask: Task) ? (aTask.oclIsTypeOf(ST_ExternalService))]
+<form class="form" action=[aTask.linkedTo.name.substituteAll(' ', '')/].html>
+
+You can launch the external service by clicking on the next button:
+<input class="form-element action-button" type="button" value="[aTask.name/]" ></input>
+
 This will produce the following information:
 <ul>[for (bInformation : Information | aTask.oclAsType(ServiceTask).produces)]<li>[bInformation.name/]</li>
 [/for]</ul>
@@ -73,8 +135,7 @@ Once finished, you can go to the next step.
 List of messages received:
 <ol>
 <li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
-<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
-<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
+[if (not aTask.eContainer(Actor).name.equalsIgnoreCase('Customer'))]<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>[/if]
 </ol>
 </form>
 [/template]
