@@ -72,9 +72,9 @@ Once finished, you can go to the next step.
 <form class="form">
 List of messages received:
 <ol>
-[for (aMsg : Task | self.linkedFrom)]
 <li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
-[/for]
+<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
+<li><button class="form-element attend-button" formaction="[aTask.linkedTo.name.substituteAll(' ', '')/].html">Attend message</button></li>
 </ol>
 </form>
 [/template]
